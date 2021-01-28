@@ -1,59 +1,58 @@
 const https = require('https');
 
 export default (req, res) => {
-  /* URL without /api prefix */
-  const url = req.url.substring(4, req.url.length);
 
-  /* Default token if not provided */
-  var apiToken = req.headers['authorization'];
-  console.log({ url, apiToken });
-  if (!apiToken) {
-    apiToken = '7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU';
-  }
+    /* URL without /api prefix */
+    const url = req.url.substring(4, req.url.length);
 
-  /* request params */
-  const options = {
-    host: 'api.pandascore.co',
-    path: url,
-    method: 'GET',
-    port: 443,
-    headers: { Authorization: apiToken, Accept: 'application/json' },
-  };
+    /* Default token if not provided */
+    var apiToken = req.headers['authorization'];
+    console.log({url, apiToken});
+    if(!apiToken) {
+        apiToken = 'Bearer REPLACE_WITH_API_TOKEN';
+    }
 
-  /* CORS headers */
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Request-Method', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+    /* request params */
+    const options = {
+        host: 'api.pandascore.co',
+        path: url,
+        method: 'GET',
+        port: 443,
+        headers: {'Authorization': apiToken, 'Accept': 'application/json'}
+        };
 
-  /* OPTION response for CORS */
-  if (req.method === 'OPTIONS') {
-    res.status(200).json();
-    return;
-  }
+    /* CORS headers */
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+    res.setHeader('Access-Control-Allow-Headers', '*');
 
-  https
-    .request(options, (resp) => {
-      let data = '';
+    /* OPTION response for CORS */
+    if ( req.method === 'OPTIONS' ) {
+        res.status(200).json();
+        return;
+    }
 
-      /* forward headers to response */
-      for (var key in resp.headers) {
-        res.setHeader(key, resp.headers[key]);
-      }
+    https.request(options, (resp) => {
+        let data = '';
 
-      // A chunk of data has been recieved.
-      resp.on('data', (chunk) => {
-        data += chunk;
-      });
+        /* forward headers to response */
+        for(var key in resp.headers) {
+            res.setHeader(key, resp.headers[key]);
+        }
 
-      // The whole response has been received. Print out the result.
-      resp.on('end', () => {
-        res.status(resp.statusCode).json(JSON.parse(data));
-      });
-    })
-    .on('error', (err) => {
-      console.log('Error: ' + err.message);
-      res.status(500).json({ error: err.message });
-    })
-    .end();
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+            res.status(resp.statusCode).json(JSON.parse(data));
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+        res.status(500).json({error: err.message});
+    }).end();
 };
