@@ -28,10 +28,10 @@ class App extends Component {
     this.setState({ loading: true });
 
     const res = await Axios.get(
-      'https://api.pandascore.co/leagues?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
+      '/api/leagues?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
     );
     const res2 = await Axios.get(
-      'https://api.pandascore.co/teams?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
+      '/api/teams?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
     );
 
     this.setState({ leagues: res.data, loading: false, teams: res2.data });
@@ -43,14 +43,14 @@ class App extends Component {
       this.setState({ loading: true });
 
       const res = await Axios.get(
-        'https://api.pandascore.co/leagues?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
+        '/api/leagues?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
       );
 
       this.setState({ leagues: res.data, loading: false });
     } else {
       this.setState({ loading: true });
       const res = await Axios.get(
-        `https://api.pandascore.co/leagues?search[name]=${text}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+        `/api/leagues?search[name]=${text}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
       );
       this.setState({ leagues: res.data, loading: false });
     }
@@ -62,14 +62,14 @@ class App extends Component {
       this.setState({ loading: true });
 
       const res = await Axios.get(
-        'https://api.pandascore.co/teams?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
+        '/api/teams?page[size]=5&&page[number]=1&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU'
       );
 
       this.setState({ teams: res.data, loading: false });
     } else {
       this.setState({ loading: true });
       const res = await Axios.get(
-        `https://api.pandascore.co/teams?search[name]=${text}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+        `/api/teams?search[name]=${text}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
       );
       this.setState({ teams: res.data, loading: false });
     }
@@ -79,7 +79,7 @@ class App extends Component {
   getLeague = async (leagueId) => {
     this.setState({ loading: true });
     const res = await Axios.get(
-      `https://api.pandascore.co/leagues/${leagueId}?token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+      `/api/leagues/${leagueId}?token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
     );
     this.setState({ league: res.data, loading: false });
   };
@@ -88,7 +88,7 @@ class App extends Component {
   getTeam = async (TeamId) => {
     this.setState({ loading: true });
     const res = await Axios.get(
-      `https://api.pandascore.co/teams/${TeamId}?token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+      `/api/teams/${TeamId}?token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
     );
     this.setState({ team: res.data, loading: false });
   };
@@ -97,7 +97,7 @@ class App extends Component {
   handleLeagueChange = async (event, value) => {
     this.setState({ loading: true });
     const res = await Axios.get(
-      `https://api.pandascore.co/leagues?page[size]=5&&page[number]=${value}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+      `/api/leagues?page[size]=5&&page[number]=${value}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
     );
     this.setState({ leagues: res.data, loading: false });
   };
@@ -106,7 +106,7 @@ class App extends Component {
   handleTeamChange = async (event, value) => {
     this.setState({ loading: true });
     const res = await Axios.get(
-      `https://api.pandascore.co/teams?page[size]=5&&page[number]=${value}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
+      `/api/teams?page[size]=5&&page[number]=${value}&&token=7eMZXb0MMIN4MiANAJ3ES8R3QgQ0BXN69O4wRgjMwQTtp97z-eU`
     );
     this.setState({ teams: res.data, loading: false });
   };
